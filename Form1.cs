@@ -19,6 +19,10 @@ namespace StemStudentUtil
         public Form1()
         {
             InitializeComponent();
+
+            // Set dropdown defaults
+            baseInputDropdown.SelectedIndex = 0;
+            outputBaseDropdown.SelectedIndex = 0;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -29,7 +33,7 @@ namespace StemStudentUtil
         ///////////////////////////////////
         ////////////// BASE CONVERTER
 
-        string inputStr, outputStr, inputBaseStr, outputBaseStr;
+        string inputStr = "", outputStr, inputBaseStr, outputBaseStr;
         int inputBaseVal, customInputBaseVal, 
             outputBaseVal, customOutputBaseVal;
         bool useCustomInput, useCustomOutput;
@@ -42,6 +46,17 @@ namespace StemStudentUtil
             // Change enabled status of input dropdown and custom input textbox
             baseInputDropdown.Enabled = !baseInputCheckBox.Checked;
             customInputBase.Enabled = baseInputCheckBox.Checked;
+
+            if (baseInputCheckBox.Checked)
+            {
+                if (customInputBase.TextLength == 0)
+                    customInputBase.BackColor = Color.White;
+            }
+            else
+            {
+                if (customInputBase.TextLength == 0)
+                    customInputBase.BackColor = Color.LightGray;
+            }
         }
 
         private void baseCustomOutput_CheckedChanged(object sender, EventArgs e)
@@ -51,6 +66,17 @@ namespace StemStudentUtil
             // Change enabled status of output dropdown and custom output textbox
             outputBaseDropdown.Enabled = !baseOutputCheckBox.Checked;
             customOutputBase.Enabled = baseOutputCheckBox.Checked;
+
+            if (baseOutputCheckBox.Checked)
+            {
+                if (customOutputBase.TextLength == 0)
+                    customOutputBase.BackColor = Color.White;
+            }
+            else
+            {
+                if (customOutputBase.TextLength == 0)
+                    customOutputBase.BackColor = Color.LightGray;
+            }
         }
 
         //////// Textboxes
@@ -59,7 +85,9 @@ namespace StemStudentUtil
             bool parse = exceptionHandler_Base.checkInput(baseInputTextbox.Text, out inputStr);
 
             if (!parse)
-                MessageBox.Show("Error! Invalid input!");
+                baseInputTextbox.BackColor = Color.Red;
+            else
+                baseInputTextbox.BackColor = Color.White;
         }
 
         private void baseCustomInput_TextChanged(object sender, EventArgs e)
@@ -68,7 +96,9 @@ namespace StemStudentUtil
                 customInputBase.Text, out customInputBaseVal);
 
             if (!parse)
-                MessageBox.Show($"Error! Base must be a numeral 1 - {BaseExceptionHandler.MAX_BASE_NUMBER}.");
+                customInputBase.BackColor = Color.Red;
+            else
+                customInputBase.BackColor = Color.White;
         }
 
         private void baseCustomOutput_TextChanged(object sender, EventArgs e)
@@ -77,7 +107,11 @@ namespace StemStudentUtil
             customOutputBase.Text, out customOutputBaseVal);
 
             if (!parse)
-                MessageBox.Show($"Error! Base must be a numeral 1 - {BaseExceptionHandler.MAX_BASE_NUMBER}.");
+                customOutputBase.BackColor = Color.Red;
+            else
+                customOutputBase.BackColor = Color.White;
+
+            //MessageBox.Show($"Error! Base must be a numeral 1 - {BaseExceptionHandler.MAX_BASE_NUMBER}.");
         }
 
         //////// Dropdowns

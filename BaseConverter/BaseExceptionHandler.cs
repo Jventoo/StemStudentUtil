@@ -79,7 +79,7 @@ namespace StemStudentUtil.BaseConverter
             bool parse = Int32.TryParse(input, out temp);
 
 
-            if (!parse || temp == 0 | (temp - MAX_BASE_NUMBER > 0))
+            if (!parse /*|| temp == 0*/ || (temp - MAX_BASE_NUMBER > 0))
             {
                 baseNum = -1;
                 return false;

@@ -10,7 +10,21 @@ namespace StemStudentUtil.BaseConverter
     {
         static public string convertInput(string inputStr, int inputBase, int outputBase)
         {
-            return (inputBase + outputBase).ToString();
+            string res = "", temp = "";
+
+            if (inputBase == 10)
+                res = convertFromDecimal(inputStr, outputBase);
+            else
+            {
+                temp = convertToDecimal(inputStr, inputBase);
+
+                if (outputBase != 10)
+                    res = convertFromDecimal(temp, outputBase);
+                else
+                    res = temp;
+            }
+
+            return res;
         }
 
         static public int convertBaseType(string baseStr)
@@ -37,6 +51,16 @@ namespace StemStudentUtil.BaseConverter
             }
 
             return baseNum;
+        }
+
+        static private string convertToDecimal(string inputStr, int inputBase)
+        {
+            return "";
+        }
+
+        static private string convertFromDecimal(string inputStr, int outputBase)
+        {
+            return "";
         }
     }
 }
