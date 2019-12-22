@@ -29,8 +29,8 @@ namespace StemStudentUtil
         ///////////////////////////////////
         ////////////// BASE CONVERTER
 
-        string outputStr, inputBaseStr, outputBaseStr;
-        int inputNum, inputBaseVal, customInputBaseVal, 
+        string inputStr, outputStr, inputBaseStr, outputBaseStr;
+        int inputBaseVal, customInputBaseVal, 
             outputBaseVal, customOutputBaseVal;
         bool useCustomInput, useCustomOutput;
 
@@ -56,7 +56,7 @@ namespace StemStudentUtil
         //////// Textboxes
         private void baseInput_TextChanged(object sender, EventArgs e)
         {
-            bool parse = exceptionHandler_Base.checkInput(baseInputTextbox.Text, out inputNum);
+            bool parse = exceptionHandler_Base.checkInput(baseInputTextbox.Text, out inputStr);
 
             if (!parse)
                 MessageBox.Show("Error! Invalid input!");
@@ -68,16 +68,16 @@ namespace StemStudentUtil
                 customInputBase.Text, out customInputBaseVal);
 
             if (!parse)
-                MessageBox.Show("Error! Base must be a numeral 1 - 20.");
+                MessageBox.Show($"Error! Base must be a numeral 1 - {BaseExceptionHandler.MAX_BASE_NUMBER}.");
         }
 
         private void baseCustomOutput_TextChanged(object sender, EventArgs e)
         {
             bool parse = exceptionHandler_Base.checkCustomBaseInput(
-                customOutputBase.Text, out customOutputBaseVal);
+            customOutputBase.Text, out customOutputBaseVal);
 
             if (!parse)
-                MessageBox.Show("Error! Base must be a numeral 1 - 20.");
+                MessageBox.Show($"Error! Base must be a numeral 1 - {BaseExceptionHandler.MAX_BASE_NUMBER}.");
         }
 
         //////// Dropdowns
@@ -110,8 +110,12 @@ namespace StemStudentUtil
             else
                 outputBaseParam = outputBaseVal;
 
+            bool goodInput = exceptionHandler_Base.checkIfInputConsistent(inputStr, inputBaseParam);
 
-            outputStr = BaseUtilities.convertInput(inputNum, inputBaseParam, outputBaseParam);
+            if (!goodInput)
+                MessageBox.Show("Error! Input transcends chosen base.");
+
+            outputStr = BaseUtilities.convertInput(inputStr, inputBaseParam, outputBaseParam);
             baseOutputTextbox.Text = outputStr;
         }
     }

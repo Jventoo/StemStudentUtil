@@ -8,7 +8,7 @@ namespace StemStudentUtil.BaseConverter
 {
     class BaseUtilities
     {
-        static public string convertInput(int input, int inputBase, int outputBase)
+        static public string convertInput(string inputStr, int inputBase, int outputBase)
         {
             return (inputBase + outputBase).ToString();
         }

@@ -8,20 +8,68 @@ namespace StemStudentUtil.BaseConverter
 {
     class BaseExceptionHandler
     {
-        const int MAX_BASE_NUMBER = 20;
+        public const int MAX_BASE_NUMBER = 16;
 
-        public bool checkInput(string input, out int inputNum)
+        
+        /* Check if supplied input is alphanumerical using only letters A - F.
+           Converts lowercase letters to upper if needed. Returns corrected string in output param */
+        public bool checkInput(string input, out string newSTR)
         {
-            int temp = 0;
-            bool parse = Int32.TryParse(input, out temp);
+            var builder = new StringBuilder();
 
-            if (!parse)
+            foreach (char c in input)
             {
-                inputNum = -1;
-                return false;
+                int charVal = c;
+
+                if (charVal > 96 && charVal < 103)
+                    builder.Append(char.ToUpper(c));
+                else if ((charVal > 47 && charVal < 58) || (charVal > 64 && charVal < 71))
+                    builder.Append(c);
+                else
+                {
+                    newSTR = "INVALID";
+                    return false;
+                }
             }
 
-            inputNum = temp;
+            newSTR = builder.ToString();
+            return true;
+        }
+
+        // Check if the input string's characters are consistent with its base
+        public bool checkIfInputConsistent(string input, int numeralBase)
+        {
+            int upperBound = 0, lowerBound = 47;
+
+            if (numeralBase < 11)
+            {
+                switch (numeralBase)
+                {
+                    case 0:
+                        return false;
+
+                    case 1:
+                        lowerBound = 48;
+                        upperBound = 50;
+                        break;
+
+                    default:
+                        upperBound = 48 + numeralBase;
+                        break;
+                }
+            }
+            else
+            {
+                upperBound = 55 + numeralBase;
+            }
+
+            foreach (char c in input)
+            {
+                int charVal = c;
+                if (charVal >= upperBound || charVal <= lowerBound)
+                    return false;
+            }
+
             return true;
         }
 
