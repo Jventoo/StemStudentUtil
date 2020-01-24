@@ -147,7 +147,10 @@ namespace StemStudentUtil
             bool goodInput = exceptionHandler_Base.checkIfInputConsistent(inputStr, inputBaseParam);
 
             if (!goodInput)
+            {
                 MessageBox.Show("Error! Input transcends chosen base.");
+                return;
+            }
 
             outputStr = BaseUtilities.convertInput(inputStr, inputBaseParam, outputBaseParam);
             baseOutputTextbox.Text = outputStr;
