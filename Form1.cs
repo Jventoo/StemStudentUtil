@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using StemStudentUtil.BaseConverter;
+using StemStudentUtil.UnitConverter;
 
 namespace StemStudentUtil
 {
@@ -30,15 +31,18 @@ namespace StemStudentUtil
             exceptionHandler_Base = new BaseExceptionHandler();
         }
 
-        ///////////////////////////////////
-        ////////////// BASE CONVERTER
+
+//////// Variables
+        //////// Base Converter
 
         string inputStr = "", outputStr, inputBaseStr, outputBaseStr;
         int inputBaseVal, customInputBaseVal, 
             outputBaseVal, customOutputBaseVal;
         bool useCustomInput, useCustomOutput;
 
-        //////// Checkboxes
+
+//////// Checkboxes
+        //////// Base Converter
         private void baseCustomInput_CheckedChanged(object sender, EventArgs e)
         {
             useCustomInput = baseInputCheckBox.Checked;
@@ -79,7 +83,9 @@ namespace StemStudentUtil
             }
         }
 
-        //////// Textboxes
+
+//////// Textboxes
+        //////// Base Converter
         private void baseInput_TextChanged(object sender, EventArgs e)
         {
             bool parse = exceptionHandler_Base.checkInput(baseInputTextbox.Text, out inputStr);
@@ -114,7 +120,9 @@ namespace StemStudentUtil
             //MessageBox.Show($"Error! Base must be a numeral 1 - {BaseExceptionHandler.MAX_BASE_NUMBER}.");
         }
 
-        //////// Dropdowns
+
+//////// Dropdowns
+        //////// Base Converter
 
         private void baseInputDropdown_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -128,7 +136,15 @@ namespace StemStudentUtil
             outputBaseVal = BaseUtilities.convertBaseType(outputBaseStr);
         }
 
-        //////// Buttons
+        //////// Unit Converter
+        private void unitChoiceDropdown_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UnitUtilities.setComboBoxes(unitChoiceDropdown.SelectedItem.ToString());
+        }
+
+
+//////// Buttons
+        //////// Base Converter
 
         private void baseConvertButton_Click(object sender, EventArgs e)
         {
